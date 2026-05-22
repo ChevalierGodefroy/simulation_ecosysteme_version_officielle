@@ -3,10 +3,8 @@ import streamlit as st
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MultipleLocator
 from streamlit_scroll_to_top import scroll_to_here
 from st_clickable_images import clickable_images
-import plotly.graph_objects as go
 import math
 from matplotlib.ticker import FixedLocator, FixedFormatter
 
@@ -55,55 +53,76 @@ if choix_page == "Simulation":
         row2_col1, row2_col2, row2_col3, row2_col4, row2_col5, row2_col6 = st.columns([3, 2, 2, 2, 2, 2], vertical_alignment="top")
 
         row2_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 5px; margin: 0; line-height: 1; display: block; '> Quel est le nombre annuel de descendants de l'espèce ? </div> """, unsafe_allow_html=True)
-        TP_E1 = row2_col2.slider("", 1, 200, 100, step=1, key="descendants 1", label_visibility="collapsed")
-        TP_E2 = row2_col3.slider("", 1, 40, 20, step=1, key="descendants 2", label_visibility="collapsed")
-        TP_E3 = row2_col4.slider("", 1, 12, 8, step=1, key="descendants 3", label_visibility="collapsed")
-        TP_E4 = row2_col5.slider("", 1, 8, 5, step=1, key="descendants 4", label_visibility="collapsed")
-        TP_E5 = row2_col6.slider("", 1, 5, 3, step=1, key="descendants 5", label_visibility="collapsed")
+        TP_E1 = row2_col2.slider("", 100, 300, #Solution : 250
+                                 200, step=10, key="descendants 1", label_visibility="collapsed")
+        TP_E2 = row2_col3.slider("", 10, 50, #Solution : 25
+                                 45, step=1, key="descendants 2", label_visibility="collapsed")
+        TP_E3 = row2_col4.slider("", 1, 10, #Solution : 3
+                                 6, step=1, key="descendants 3", label_visibility="collapsed")
+        TP_E4 = row2_col5.slider("", 1, 20, #Solution : 10
+                                 3, step=1, key="descendants 4", label_visibility="collapsed")
+        TP_E5 = row2_col6.slider("", 1, 5, #Solution : 1
+                                 4, step=1, key="descendants 5", label_visibility="collapsed")
 
     with st.container():
         row3_col1, row3_col2, row3_col3, row3_col4, row3_col5, row3_col6 = st.columns([3, 2, 2, 2, 2, 2], vertical_alignment="top")
 
-        row3_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 5px; margin-right: 50px; line-height: 1; display: block; '> Quelle est l'efficacité de survie de l'espèce? </div> """, unsafe_allow_html=True)
-        ES_E1 = row3_col2.slider("", 0.1, 1.0, 0.3, step=0.1, key="survie 1", label_visibility="collapsed")
-        ES_E2 = row3_col3.slider("", 0.1, 1.0, 0.2, step=0.1, key="survie 2", label_visibility="collapsed")
-        ES_E3 = row3_col4.slider("", 0.1, 1.0, 0.3, step=0.1, key="survie 3", label_visibility="collapsed")
-        ES_E4 = row3_col5.slider("", 0.1, 1.0, 0.2, step=0.1, key="survie 4", label_visibility="collapsed")
-        ES_E5 = row3_col6.slider("", 1, 2, 1, step=1, key="survie 5", label_visibility="collapsed")
+        row3_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 5px; margin-right: 40px; line-height: 1; display: block; '> Quelle est l'efficacité de prédation de l'espèce? </div> """, unsafe_allow_html=True)
+        EP_E2 = row3_col3.slider("", 0.1, 1.0, #Solution : 0.5
+                                 0.7, step=0.1, key="prédation 2", label_visibility="collapsed")
+        EP_E3 = row3_col4.slider("", 0.1, 1.0, #Solution : 0.6
+                                 0.4, step=0.1, key="prédation 3", label_visibility="collapsed")
+        EP_E4 = row3_col5.slider("", 0.1, 1.0, #Solution : 0.9
+                                 0.6, step=0.1, key="prédation 4", label_visibility="collapsed")
+        EP_E5 = row3_col6.slider("", 0.1, 1.0, #Solution : 0.6
+                                 0.8, step=0.1, key="prédation 5", label_visibility="collapsed")
 
     with st.container():
         row4_col1, row4_col2, row4_col3, row4_col4, row4_col5, row4_col6 = st.columns([3, 2, 2, 2, 2, 2], vertical_alignment="top")
 
-        row4_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 5px; margin-right: 40px; line-height: 1; display: block; '> Quelle est l'efficacité de prédation de l'espèce? </div> """, unsafe_allow_html=True)
-        EP_E1 = row4_col2.slider("", 0, 1, 0, step=1, key="prédation 1", label_visibility="collapsed")
-        EP_E2 = row4_col3.slider("", 0.1, 1.0, 0.2, step=0.1, key="prédation 2", label_visibility="collapsed")
-        EP_E3 = row4_col4.slider("", 0.1, 1.0, 0.7, step=0.1, key="prédation 3", label_visibility="collapsed")
-        EP_E4 = row4_col5.slider("", 0.1, 1.0, 0.9, step=0.1, key="prédation 4", label_visibility="collapsed")
-        EP_E5 = row4_col6.slider("", 0.1, 1.0, 1.0, step=0.1, key="prédation 5", label_visibility="collapsed")
+        row4_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 5px; margin-right: 50px; line-height: 1; display: block; '> Quelle est l'efficacité de survie de l'espèce? </div> """, unsafe_allow_html=True)
+        ES_E1 = row4_col2.slider("", 0.1, 1.0, #Solution : 0.4
+                                 0.5, step=0.1, key="survie 1", label_visibility="collapsed")
+        ES_E2 = row4_col3.slider("", 0.1, 1.0, #Solution : 0.3
+                                 0.2, step=0.1, key="survie 2", label_visibility="collapsed")
+        ES_E3 = row4_col4.slider("", 0.1, 1.0, #Solution : 0.5
+                                 0.4, step=0.1, key="survie 3", label_visibility="collapsed")
+        ES_E4 = row4_col5.slider("", 0.1, 1.0, #Solution : 0.1
+                                 0.6, step=0.1, key="survie 4", label_visibility="collapsed")
 
     with st.container():
         row5_col1, row5_col2, row5_col3, row5_col4, row5_col5, row5_col6 = st.columns([3, 2, 2, 2, 2, 2], vertical_alignment="top")
 
         row5_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 5px; margin: 0; line-height: 1; display: block; '> Sans prédation, quelle serait l'espérance de vie de l'espèce ? </div> """, unsafe_allow_html=True)
-        Long_E1 = row5_col2.slider("", 1, 50, 2, step=1, key="longévité 1", label_visibility="collapsed")
-        Long_E2 = row5_col3.slider("", 1, 50, 4, step=1, key="longévité 2", label_visibility="collapsed")
-        Long_E3 = row5_col4.slider("", 1, 50, 8, step=1, key="longévité 3", label_visibility="collapsed")
-        Long_E4 = row5_col5.slider("", 1, 50, 15, step=1, key="longévité 4", label_visibility="collapsed")
-        Long_E5 = row5_col6.slider("", 1, 50, 35, step=1, key="longévité 5", label_visibility="collapsed")
+        Long_E1 = row5_col2.slider("", 1, 10, #Solution : 2
+                                   1, step=1, key="longévité 1", label_visibility="collapsed")
+        Long_E2 = row5_col3.slider("", 1, 20, #Solution : 12
+                                   3, step=1, key="longévité 2", label_visibility="collapsed")
+        Long_E3 = row5_col4.slider("", 1, 30, #Solution : 17
+                                   8, step=1, key="longévité 3", label_visibility="collapsed")
+        Long_E4 = row5_col5.slider("", 1, 50, #Solution : 35
+                                   12, step=1, key="longévité 4", label_visibility="collapsed")
+        Long_E5 = row5_col6.slider("", 1, 50, #Solution : 25
+                                   45, step=1, key="longévité 5", label_visibility="collapsed")
 
-    with st.container():
-        row6_col1, row6_col2, row6_col3, row6_col4, row6_col5, row6_col6 = st.columns([3, 2, 2, 2, 2, 2], vertical_alignment="top")
+    # Panneau de sélection des 4 paramètres KER
+    # with st.container():
+    #     row6_col1, row6_col2, row6_col3, row6_col4, row6_col5, row6_col6 = st.columns([3, 2, 2, 2, 2, 2], vertical_alignment="top")
+    #
+    #     row6_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 12px; margin: 0; line-height: 1; display: block; '> Paramètre KER ajustable """, unsafe_allow_html=True)
+    #     KER_E2 = row6_col3.slider("", 0.01, 10.0, 7.37, step=0.01, key="KER_E2", label_visibility="collapsed")
+    #     KER_E2 = KER_E2 / 1_000_000_000_000
+    #     KER_E3 = row6_col4.slider("", 0.01, 10.0, 1.51, step=0.01, key="KER_E3", label_visibility="collapsed")
+    #     KER_E3 = KER_E3 / 100_000_000
+    #     KER_E4 = row6_col5.slider("", 0.01, 10.0, 1.21, step=0.01, key="KER_E4", label_visibility="collapsed")
+    #     KER_E4 = KER_E4 / 100_000_000
+    #     KER_E5 = row6_col6.slider("", 0.01, 10.0, 0.98, step=0.01, key="KER_E5", label_visibility="collapsed")
+    #     KER_E5 = KER_E5 / 100_000
 
-        row6_col1.markdown(""" <div style=' font-size: 14px; font-weight: normal; padding-top: 12px; margin: 0; line-height: 1; display: block; '> Paramètre KER temporaire """, unsafe_allow_html=True)
-        KER_E1 = row6_col2.slider("", 1, 2, 1, step=1, key="KER_E1", label_visibility="collapsed")
-        KER_E2 = row6_col3.slider("", 0.01, 10.0, 4.78, step=0.01, key="KER_E2", label_visibility="collapsed")
-        KER_E2 = KER_E2 / 10_000_000
-        KER_E3 = row6_col4.slider("", 0.01, 10.0, 5.07, step=0.01, key="KER_E3", label_visibility="collapsed")
-        KER_E3 = KER_E3 / 1_000_000
-        KER_E4 = row6_col5.slider("", 0.01, 5.0, 1.59, step=0.01, key="KER_E4", label_visibility="collapsed")
-        KER_E4 = KER_E4 / 100_000
-        KER_E5 = row6_col6.slider("", 0.01, 1.0, 0.99, step=0.01, key="KER_E5", label_visibility="collapsed")
-        KER_E5 = KER_E5 / 10_000
+    KER_E2 = 7.37 / 1_000_000_000_000
+    KER_E3 = 1.51 / 100_000_000
+    KER_E4 = 1.21 / 100_000_000
+    KER_E5 = 0.98 / 100_000
 
 
     # Si jamais d'autres tests de mise en page sont nécessaires...
@@ -181,61 +200,66 @@ if choix_page == "Simulation":
 
 
     # Identification des constantes
-    P_E1_0 = 50_000_000  # Valeur temporaire   #population_initiale_espèce_n
-    P_E2_0 = 30_000
-    P_E3_0 = 3000
-    P_E4_0 = 150
-    P_E5_0 = 6
+    P_E1_0 = 10_000_000_000  #population_initiale_espèce_n
+    P_E2_0 = 50_000_000
+    P_E3_0 = 100_000
+    P_E4_0 = 8_000
+    P_E5_0 = 20
 
-    CIPJPB = 15  # Valeur temporaire   #calories_ingérées_par_jour_proie_de_base
+    CIPJPB = 1.5  #calories_ingérées_par_jour_proie_de_base
 
-    CDC_E1 = 200_000_000  # Valeur temporaire   #constante_de_compétition
-    CDC_E2 = 200_000  # Valeur temporaire
-    CDC_E3 = 15_000  # Valeur temporaire
-    CDC_E4 = 800  # Valeur temporaire
-    CDC_E5 = 24  # Valeur temporaire
+    CDC_E1 = 20_000_000_000_000  #constante_de_compétition #non
+    CDC_E2 = 1_000_000_000
+    CDC_E3 = 2_000_000
+    CDC_E4 = 60_000
+    CDC_E5 = 40
 
-    TDDPPDT_E1 = 0.05  # Valeur temporaire   #temps_de_digestion_par_proie_du_type_espèce_n
-    TDDPPDT_E2 = 0.5  # Valeur temporaire
-    TDDPPDT_E3 = 1  # Valeur temporaire
-    TDDPPDT_E4 = 3  # Valeur temporaire
-    TDDPPDT_E5 = 8  # Valeur temporaire
+    TDDPP_E2_E1 = 0.02   #temps_de_digestion_par_proie_quand_espèce_n_mange_espèce_m
+    TDDPP_E3_E1 = 0.002
+    TDDPP_E3_E2 = 0.07
+    TDDPP_E4_E2 = 0.2
+    TDDPP_E4_E3 = 4
+    TDDPP_E5_E3 = 0.3
+    TDDPP_E5_E4 = 0.4
 
-    EPPDT_E1 = 100  # Valeur temporaire   #énergie_par_proie_du_type_espèce_n
-    EPPDT_E2 = 1000
-    EPPDT_E3 = 15000
-    EPPDT_E4 = 120000
-    EPPDT_E5 = 150000
+    EPPDT_E1 = 5   #énergie_par_proie_du_type_espèce_n
+    EPPDT_E2 = 200
+    EPPDT_E3 = 8000
+    EPPDT_E4 = 18000
+    EPPDT_E5 = 120000
 
-    EA_E1 = 0.4  # Valeur temporaire   #efficacité_alimentaire_espèce_n
-    EA_E2 = 0.8  # Valeur temporaire
-    EA_E3 = 0.8  # Valeur temporaire
-    EA_E4 = 0.8  # Valeur temporaire
-    EA_E5 = 0.8  # Valeur temporaire
+    EA_E1_Herbe = (1) * 0.4 # efficacité_alimentaire_quand_espèce_n_mange_espèce_m
+    EA_E2_E1 = 0.9 * 0.8
+    EA_E3_E1 = 0.8 * 0.7
+    EA_E3_E2 = 0.85 * 0.8
+    EA_E4_E2 = 1 * 0.85
+    EA_E4_E3 = 1 * 0.8
+    EA_E5_E3 = 0.8 * 0.9
+    EA_E5_E4 = 0.8 * 0.9
 
-    CMDP_E1 = 4  # Valeur temporaire   #coût_métabolique_du_parent_espèce_n
-    CMDP_E2 = 30  # Valeur temporaire
-    CMDP_E3 = 100  # Valeur temporaire
-    CMDP_E4 = 300  # Valeur temporaire
-    CMDP_E5 = 1500  # Valeur temporaire
+    CMDP_E1 = 0.3  #coût_métabolique_du_parent_espèce_n
+    CMDP_E2 = 5
+    CMDP_E3 = 300
+    CMDP_E4 = 60
+    CMDP_E5 = 3500
 
-    TPI_E1 = TP_E1 / 365  # Valeur temporaire   #taille_portée_instantanée_espèce_n
-    TPI_E2 = TP_E2 / 365  # Valeur temporaire
-    TPI_E3 = TP_E3 / 365  # Valeur temporaire
-    TPI_E4 = TP_E4 / 365  # Valeur temporaire
-    TPI_E5 = TP_E5 / 365  # Valeur temporaire
+    TPI_E1 = TP_E1 / 365  #taille_portée_instantanée_espèce_n
+    TPI_E2 = TP_E2 / 365
+    TPI_E3 = TP_E3 / 365
+    TPI_E4 = TP_E4 / 365
+    TPI_E5 = TP_E5 / 365
 
-    CEPP_E1 = 10  # Valeur temporaire   #coût_énergétique_par_portée_espèce_n
-    CEPP_E2 = 150  # Valeur temporaire
-    CEPP_E3 = 800  # Valeur temporaire
-    CEPP_E4 = 5000  # Valeur temporaire
-    CEPP_E5 = 16000  # Valeur temporaire
+    CEPP_E1 = 12  #coût_énergétique_par_portée_espèce_n
+    CEPP_E2 = 40
+    CEPP_E3 = 4000
+    CEPP_E4 = 5000
+    CEPP_E5 = 80000
 
-    LongJ_E1 = Long_E1 * 365  # Valeur temporaire   #longévité_jours_espèce_n
-    LongJ_E2 = Long_E2 * 365  # Valeur temporaire
-    LongJ_E3 = Long_E3 * 365  # Valeur temporaire
-    LongJ_E4 = Long_E4 * 365  # Valeur temporaire
-    LongJ_E5 = Long_E5 * 365  # Valeur temporaire
+    LongJ_E1 = Long_E1 * 365  #longévité_jours_espèce_n
+    LongJ_E2 = Long_E2 * 365
+    LongJ_E3 = Long_E3 * 365
+    LongJ_E4 = Long_E4 * 365
+    LongJ_E5 = Long_E5 * 365
 
 
     # Système d'équations différentielles
@@ -246,13 +270,13 @@ if choix_page == "Simulation":
         P_E1, P_E2, P_E3, P_E4, P_E5 = y_safe
 
         # Terme de natalité : 1.0 si pop >= 5, sinon 0.0
-        peut_reproduire = np.array([1.0 if val >= 5.0 else 0.0 for val in y_safe])
+        peut_reproduire = np.array([1.0 if val >= 10.0 else 0.0 for val in y_safe])
 
-        dP_E1dt = natalité_et_compétition_proie_de_base(CIPJPB, EA_E1, CMDP_E1, P_E1, TPI_E1, CEPP_E1, CDC_E1)*peut_reproduire[0] - décès_proie (KER_E2, ES_E1, EP_E2, P_E1, P_E2, TDDPPDT_E1) - décès_proie(KER_E3, ES_E1, EP_E3, P_E1, P_E3, TDDPPDT_E1) - mortalité_naturelle(LongJ_E1, P_E1)
-        dP_E2dt = natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E2, ES_E1, EP_E2, P_E1, TDDPPDT_E1, EPPDT_E1, EA_E2, CMDP_E2, P_E2, TPI_E2, CEPP_E2, CDC_E2)*peut_reproduire[1] - décès_proie(KER_E3, ES_E2, EP_E3, P_E2, P_E3, TDDPPDT_E2) - décès_proie(KER_E4, ES_E2, EP_E4, P_E2, P_E4, TDDPPDT_E2) - mortalité_naturelle(LongJ_E2, P_E2)
-        dP_E3dt = (natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E3, ES_E1, EP_E3, P_E1, TDDPPDT_E1, EPPDT_E1, EA_E3, CMDP_E3, P_E3, TPI_E3, CEPP_E3, CDC_E3) + natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E3, ES_E2, EP_E3, P_E2, TDDPPDT_E2, EPPDT_E2, EA_E3, CMDP_E3, P_E3, TPI_E3, CEPP_E3, CDC_E3))*peut_reproduire[2] - décès_proie(KER_E4, ES_E3, EP_E4, P_E3, P_E4, TDDPPDT_E3) - décès_proie(KER_E5, ES_E3, EP_E5, P_E3, P_E5, TDDPPDT_E3) - mortalité_naturelle(LongJ_E3, P_E3)
-        dP_E4dt = (natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E4, ES_E2, EP_E4, P_E2, TDDPPDT_E2, EPPDT_E2, EA_E4, CMDP_E4, P_E4, TPI_E4, CEPP_E4, CDC_E4) + natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E4, ES_E3, EP_E4, P_E3, TDDPPDT_E3, EPPDT_E3, EA_E4, CMDP_E4, P_E4, TPI_E4, CEPP_E4, CDC_E4))*peut_reproduire[3] - décès_proie(KER_E5, ES_E4, EP_E5, P_E4, P_E5, TDDPPDT_E4) - mortalité_naturelle(LongJ_E4, P_E4)
-        dP_E5dt = (natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E5, ES_E3, EP_E5, P_E3, TDDPPDT_E3, EPPDT_E3, EA_E5, CMDP_E5, P_E5, TPI_E5, CEPP_E5, CDC_E5) + natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E5, ES_E4, EP_E5, P_E4, TDDPPDT_E4, EPPDT_E4, EA_E5, CMDP_E5, P_E5, TPI_E5, CEPP_E5, CDC_E5))*peut_reproduire[4] - mortalité_naturelle(LongJ_E5, P_E5)
+        dP_E1dt = natalité_et_compétition_proie_de_base(CIPJPB, EA_E1_Herbe, CMDP_E1, P_E1, TPI_E1, CEPP_E1, CDC_E1)*peut_reproduire[0] - décès_proie (KER_E2, ES_E1, EP_E2, P_E1, P_E2, TDDPP_E2_E1) - décès_proie(KER_E3, ES_E1, EP_E3, P_E1, P_E3, TDDPP_E3_E1) - mortalité_naturelle(LongJ_E1, P_E1)
+        dP_E2dt = natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E2, ES_E1, EP_E2, P_E1, TDDPP_E2_E1, EPPDT_E1, EA_E2_E1, CMDP_E2, P_E2, TPI_E2, CEPP_E2, CDC_E2)*peut_reproduire[1] - décès_proie(KER_E3, ES_E2, EP_E3, P_E2, P_E3, TDDPP_E3_E2) - décès_proie(KER_E4, ES_E2, EP_E4, P_E2, P_E4, TDDPP_E4_E2) - mortalité_naturelle(LongJ_E2, P_E2)
+        dP_E3dt = (natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E3, ES_E1, EP_E3, P_E1, TDDPP_E3_E1, EPPDT_E1, EA_E3_E1, CMDP_E3, P_E3, TPI_E3, CEPP_E3, CDC_E3) + natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E3, ES_E2, EP_E3, P_E2, TDDPP_E3_E2, EPPDT_E2, EA_E3_E2, CMDP_E3, P_E3, TPI_E3, CEPP_E3, CDC_E3))*peut_reproduire[2] - décès_proie(KER_E4, ES_E3, EP_E4, P_E3, P_E4, TDDPP_E4_E3) - décès_proie(KER_E5, ES_E3, EP_E5, P_E3, P_E5, TDDPP_E5_E3) - mortalité_naturelle(LongJ_E3, P_E3)
+        dP_E4dt = (natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E4, ES_E2, EP_E4, P_E2, TDDPP_E4_E2, EPPDT_E2, EA_E4_E2, CMDP_E4, P_E4, TPI_E4, CEPP_E4, CDC_E4) + natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E4, ES_E3, EP_E4, P_E3, TDDPP_E4_E3, EPPDT_E3, EA_E4_E3, CMDP_E4, P_E4, TPI_E4, CEPP_E4, CDC_E4))*peut_reproduire[3] - décès_proie(KER_E5, ES_E4, EP_E5, P_E4, P_E5, TDDPP_E5_E4) - mortalité_naturelle(LongJ_E4, P_E4)
+        dP_E5dt = (natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E5, ES_E3, EP_E5, P_E3, TDDPP_E5_E3, EPPDT_E3, EA_E5_E3, CMDP_E5, P_E5, TPI_E5, CEPP_E5, CDC_E5) + natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E5, ES_E4, EP_E5, P_E4, TDDPP_E5_E4, EPPDT_E4, EA_E5_E4, CMDP_E5, P_E5, TPI_E5, CEPP_E5, CDC_E5))*peut_reproduire[4] - mortalité_naturelle(LongJ_E5, P_E5)
 
         dérivées = [dP_E1dt, dP_E2dt, dP_E3dt, dP_E4dt, dP_E5dt]
 
@@ -282,21 +306,21 @@ if choix_page == "Simulation":
 
 
     # Test diagnostique sur les taux de variation
-    with st.expander("🔍 **Test diagnostique** des taux initiaux (t=0)"):
-
-        noms_diag = ["Insectes", "Lézard", "Coati", "Boa", "Jaguar"]
-        taux_initiaux = système_équations(0, y0)
-        infos_initiales = []
-
-        for i in range(5):
-            pop_actuelle = y0[i]
-            taux = taux_initiaux[i]
-
-            pourcentage = (taux / pop_actuelle) * 100 if pop_actuelle > 0 else 0
-
-            infos_initiales.append({"Espèce": noms_diag[i], "Variation (individus/jour)": f"{taux:,.2f}", "Variation (%)": f"{pourcentage:+.2f} %"})
-
-        st.table(infos_initiales)
+    # with st.expander("🔍 **Test diagnostique** des taux initiaux (t=0)"):
+    #
+    #     noms_diag = ["Insectes", "Lézard", "Coati", "Boa", "Jaguar"]
+    #     taux_initiaux = système_équations(0, y0)
+    #     infos_initiales = []
+    #
+    #     for i in range(5):
+    #         pop_actuelle = y0[i]
+    #         taux = taux_initiaux[i]
+    #
+    #         pourcentage = (taux / pop_actuelle) * 100 if pop_actuelle > 0 else 0
+    #
+    #         infos_initiales.append({"Espèce": noms_diag[i], "Variation (individus/jour)": f"{taux:,.2f}", "Variation (%)": f"{pourcentage:+.2f} %"})
+    #
+    #     st.table(infos_initiales)
 
 
     # Résolution du système d'équations différentielles
@@ -306,7 +330,7 @@ if choix_page == "Simulation":
 
     # Calcul du flux énergétique
     t_jours = sol.t #.t est la variable horizontale de la boîte numérique de résultats et .y est la variable verticale
-    resultat_population = sol.y 
+    resultat_population = sol.y
     nombre_de_pas = len(t_jours)
 
     # Création des arrays numpy vides
@@ -324,51 +348,51 @@ if choix_page == "Simulation":
         Herbe_E1 = CIPJPB * p[0]
         flux_energetique_annuel["Herbe_E1"][i] = Herbe_E1
         # Entrant : Environnement
-        energie_entrante[0, i] = Herbe_E1 * EA_E1
+        energie_entrante[0, i] = Herbe_E1 * EA_E1_Herbe
         # Sortant : métabolisme + prédation E2 + prédation E3 + mort naturelle
-        energie_sortante[0, i] = (CMDP_E1 * p[0]) + (décès_proie(KER_E2, ES_E1, EP_E2, p[0], p[1], TDDPPDT_E1) + décès_proie(KER_E3, ES_E1, EP_E3, p[0], p[2], TDDPPDT_E1) + (1 / LongJ_E1) * p[0]) * EPPDT_E1
+        energie_sortante[0, i] = (CMDP_E1 * p[0]) + (décès_proie(KER_E2, ES_E1, EP_E2, p[0], p[1], TDDPP_E2_E1) + décès_proie(KER_E3, ES_E1, EP_E3, p[0],p[2], TDDPP_E3_E1) + ( 1 / LongJ_E1) * p[0]) * EPPDT_E1
 
         # Énergie espèce 2 (lézard)
-        E1_E2 = décès_proie(KER_E2, ES_E1, EP_E2, p[0], p[1], TDDPPDT_E1) * EPPDT_E1
+        E1_E2 = décès_proie(KER_E2, ES_E1, EP_E2, p[0], p[1], TDDPP_E2_E1) * EPPDT_E1
         flux_energetique_annuel["E1_E2"][i] = E1_E2
         # Entrant : prédation E1
-        energie_entrante[1, i] = E1_E2 * EA_E2
+        energie_entrante[1, i] = E1_E2 * EA_E2_E1
         # Sortant : métabolisme + prédation E3 + prédation E4 + mort naturelle
-        energie_sortante[1, i] = (CMDP_E2 * p[1]) + (décès_proie(KER_E3, ES_E2, EP_E3, p[1], p[2], TDDPPDT_E2) + décès_proie(KER_E4, ES_E2, EP_E4, p[1], p[3], TDDPPDT_E2) + (1 / LongJ_E2) * p[1]) * EPPDT_E2
+        energie_sortante[1, i] = (CMDP_E2 * p[1]) + (décès_proie(KER_E3, ES_E2, EP_E3, p[1], p[2], TDDPP_E3_E2) + décès_proie(KER_E4, ES_E2, EP_E4, p[1],p[3], TDDPP_E4_E2) + (1 / LongJ_E2) * p[1]) * EPPDT_E2
 
         # Énergie espèce 3 (coati)
-        E1_E3 = décès_proie(KER_E3, ES_E1, EP_E3, p[0], p[2], TDDPPDT_E1) * EPPDT_E1
+        E1_E3 = décès_proie(KER_E3, ES_E1, EP_E3, p[0], p[2], TDDPP_E3_E1) * EPPDT_E1
         flux_energetique_annuel["E1_E3"][i] = E1_E3
-        E2_E3 = décès_proie(KER_E3, ES_E2, EP_E3, p[1], p[2], TDDPPDT_E2) * EPPDT_E2
+        E2_E3 = décès_proie(KER_E3, ES_E2, EP_E3, p[1], p[2], TDDPP_E3_E2) * EPPDT_E2
         flux_energetique_annuel["E2_E3"][i] = E2_E3
         # Entrant : prédation E2 + prédation E1
-        energie_entrante[2, i] = (E1_E3 + E2_E3) * EA_E3
+        energie_entrante[2, i] = (E1_E3 * EA_E3_E1 + E2_E3 * EA_E3_E2)
         # Sortant : métabolisme + prédation E4 + prédation E5 + mort naturelle
-        energie_sortante[2, i] = (CMDP_E3 * p[2]) + (décès_proie(KER_E4, ES_E3, EP_E4, p[2], p[3], TDDPPDT_E3) + décès_proie(KER_E5, ES_E3, EP_E5, p[2], p[4], TDDPPDT_E3)+ (1 / LongJ_E3) * p[2]) * EPPDT_E3
+        energie_sortante[2, i] = (CMDP_E3 * p[2]) + (décès_proie(KER_E4, ES_E3, EP_E4, p[2], p[3], TDDPP_E4_E3) + décès_proie(KER_E5, ES_E3, EP_E5, p[2],p[4], TDDPP_E5_E3) + (1 / LongJ_E3) * p[2]) * EPPDT_E3
 
         # Énergie espèce 4 (boa)
-        E2_E4 = décès_proie(KER_E4, ES_E2, EP_E4, p[1], p[3], TDDPPDT_E2)* EPPDT_E2
+        E2_E4 = décès_proie(KER_E4, ES_E2, EP_E4, p[1], p[3], TDDPP_E4_E2) * EPPDT_E2
         flux_energetique_annuel["E2_E4"][i] = E2_E4
-        E3_E4 = décès_proie(KER_E4, ES_E3, EP_E4, p[2], p[3], TDDPPDT_E3)* EPPDT_E3
+        E3_E4 = décès_proie(KER_E4, ES_E3, EP_E4, p[2], p[3], TDDPP_E4_E3) * EPPDT_E3
         flux_energetique_annuel["E3_E4"][i] = E3_E4
         # Entrant : prédation E2 + prédation E3
-        energie_entrante[3, i] = (E2_E4 + E3_E4) * EA_E4
+        energie_entrante[3, i] = (E2_E4 * EA_E4_E2 + E3_E4 * EA_E4_E3)
         # Sortant : métabolisme + prédation E5 + mort naturelle
-        energie_sortante[3, i] = (CMDP_E4 * p[3]) + (décès_proie(KER_E5, ES_E4, EP_E5, p[3], p[4], TDDPPDT_E4) + (1 / LongJ_E4) * p[3]) * EPPDT_E4
+        energie_sortante[3, i] = (CMDP_E4 * p[3]) + (décès_proie(KER_E5, ES_E4, EP_E5, p[3], p[4], TDDPP_E5_E4) + (1 / LongJ_E4) * p[3]) * EPPDT_E4
 
         # Énergie espèce 5 (jaguar)
-        E3_E5 = décès_proie(KER_E5, ES_E3, EP_E5, p[2], p[4], TDDPPDT_E3) * EPPDT_E3
+        E3_E5 = décès_proie(KER_E5, ES_E3, EP_E5, p[2], p[4], TDDPP_E5_E3) * EPPDT_E3
         flux_energetique_annuel["E3_E5"][i] = E3_E5
-        E4_E5 = décès_proie(KER_E5, ES_E4, EP_E5, p[3], p[4], TDDPPDT_E4) * EPPDT_E4
+        E4_E5 = décès_proie(KER_E5, ES_E4, EP_E5, p[3], p[4], TDDPP_E5_E4) * EPPDT_E4
         flux_energetique_annuel["E4_E5"][i] = E4_E5
         # Entrant : prédation E3 + prédation E4
-        energie_entrante[4, i] = (E3_E5 + E4_E5) * EA_E5
+        energie_entrante[4, i] = (E3_E5 * EA_E5_E3 + E4_E5 * EA_E5_E4)
         # sortant : métabolisme + mort naturelle
         energie_sortante[4, i] = (CMDP_E5 * p[4]) + (1 / LongJ_E5) * p[4] * EPPDT_E5
 
 
 
-    # Préparatiom de la mise en page
+    # Préparation de la mise en page
     placeholder_graphique = st.container()
 
 
@@ -408,12 +432,11 @@ if choix_page == "Simulation":
         changement_population = sol.y[i][masque][-1] - sol.y[i][masque][0] if any(masque) else 0
 
         # Préparation du tableau diagnostique
-        infos_flux.append({"Espèce": noms_especes[i], "Bilan énergétique annuel (kcal)": f"{energie_nette_totale:,.0f}",
-                           "Variation population": f"{changement_population:+.0f} individus", "Statut": "📈 Croissance" if energie_nette_totale > 0 else "📉 Décroissance"})
-
+        suffixe_individu = "individu" if abs(changement_population) <= 1 else "individus"
+        infos_flux.append({"Espèce": noms_especes[i], "Bilan énergétique annuel (kcal)": f"{energie_nette_totale:,.0f}", "Variation de la population": f"{changement_population:+,.0f} {suffixe_individu}", "Statut": "📈 Croissance" if energie_nette_totale > 0 else "📉 Décroissance"})
 
     # Affichage du test diagnostique
-    with st.expander(f"🔍 **Test diagnostique**  des résultats pour l'an {annee_selectionnee}"):
+    with st.expander(f"**Vue d'ensemble des résultats pour l'an {annee_selectionnee}**"):
         st.table(infos_flux)
 
 
@@ -476,7 +499,7 @@ if choix_page == "Simulation":
             axe_1.xaxis.set_major_locator(FixedLocator(np.arange(0, 21, 2)))
             axe_1.set_xlabel("Temps (années)")
 
-            # Ajustement du quadraillage et des graduations
+            # Ajustement du quadrillage et des graduations
             axe_1.grid(False)
             axe_1.tick_params(axis='y', which='both', left=True, labelleft=True, direction='out')
 
@@ -491,8 +514,8 @@ if choix_page == "Simulation":
             axe_1.axvline(x=fin_annee, color='red', linestyle='-', alpha=0.7)
 
             # Ligne du seuil d'extinction
-            axe_1.axhline(y=5 + epsilon, color='black', linestyle='--', linewidth='1')
-            axe_1.text(10, 5 + epsilon, "Seuil d'extinction", ha="center", va="center",bbox=dict(facecolor='#54d765', edgecolor='#198631', boxstyle='round,pad=0.3'))
+            axe_1.axhline(y=10 + epsilon, color='black', linestyle='--', linewidth='1')
+            axe_1.text(10, 10 + epsilon, "Seuil d'extinction", ha="center", va="center",bbox=dict(facecolor='#54d765', edgecolor='#198631', boxstyle='round,pad=0.3'))
             axe_1.axvspan(debut_annee, fin_annee, color='#f72a57', alpha=0.1)
 
             st.pyplot(figure_1)
@@ -529,9 +552,23 @@ if choix_page == "Simulation":
         ax.fill_between(t_jours / 365, bilan_energie, 0, where=(bilan_energie < 0), color='#e03d55', alpha=0.3)
 
         ax.set_xlim(debut_annee, fin_annee)
+
+        # Adaptation de l'échelle en Y
+        masque_visuel = (t_jours / 365 >= debut_annee) & (t_jours / 365 <= fin_annee)
+        donnees_visibles = bilan_energie[masque_visuel]
+
+        if len(donnees_visibles) > 0:
+            v_min, v_max = np.min(donnees_visibles), np.max(donnees_visibles)
+            marge = (v_max - v_min) * 0.1 if v_max != v_min else abs(v_max) * 0.1 if v_max != 0 else 1.0
+            ax.set_ylim(v_min - marge, v_max + marge)
+
+        # Augmentation de la visibilité de l'échelle
+        ax.yaxis.get_offset_text().set_color('#56adf5')
+        ax.yaxis.get_offset_text().set_weight('bold')
+
         ax.set_title(f"Flux net : {noms_especes[i]}", fontsize=10)
         ax.set_xlabel("Plage annuelle", fontsize=8)
-        ax.set_ylabel("Kcal/jour", fontsize=8)
+        ax.set_ylabel("kcal/jour", fontsize=8)
         ax.axhline(0, color='black', lw=0.8, ls='--')
         ax.grid(alpha=0.3)
 
@@ -563,21 +600,21 @@ if choix_page == "Simulation":
         flux_annee_precedente = {}
 
     configuration_bulles = [
-        (-370, 175, "Herbe_E1", EA_E1),
-        (-386, 345, "E1_E2", EA_E2),
-        (-255, 430, "E1_E3", EA_E3),
-        (-418, 510, "E2_E3", EA_E3),
-        (-576, 597, "E2_E4", EA_E4),
-        (-450, 680, "E3_E4", EA_E4),
-        (-318, 764, "E3_E5", EA_E5),
-        (-482, 845, "E4_E5", EA_E5)]
+        (-370, 175, "Herbe_E1", EA_E1_Herbe),
+        (-386, 345, "E1_E2", EA_E2_E1),
+        (-255, 430, "E1_E3", EA_E3_E1),
+        (-418, 510, "E2_E3", EA_E3_E2),
+        (-576, 597, "E2_E4", EA_E4_E2),
+        (-450, 680, "E3_E4", EA_E4_E3),
+        (-318, 764, "E3_E5", EA_E5_E3),
+        (-482, 845, "E4_E5", EA_E5_E4)]
 
     for top, left, etiquette, eff_alim in configuration_bulles:
         val_actuelle = flux_annee_actuelle[etiquette]
         val_precedente = flux_annee_precedente.get(etiquette, 0)
         type_couleur = "gris" if annee_selectionnee == 1 else ""
 
-        texte_superposable(f"{val_actuelle:,.0f} kcal ⋅ {eff_alim}<br>= {val_actuelle * eff_alim:,.0f}", top=top, left=left, type_couleur=type_couleur, energie_annee_actuelle = val_actuelle, energie_annee_precedente = val_precedente)
+        texte_superposable(f"{val_actuelle:,.0f} kcal ⋅ {eff_alim:g}<br>= {val_actuelle * eff_alim:,.0f} kcal", top=top, left=left, type_couleur=type_couleur, energie_annee_actuelle = val_actuelle, energie_annee_precedente = val_precedente)
 
 
 
@@ -585,7 +622,10 @@ if choix_page == "Simulation":
 
         # Bouton de validation
         st.markdown("<h1 style='text-align: center; font-size: 20px; margin-top: 10px; color: #2fa147; '>Valider la viabilité</h1>", unsafe_allow_html=True)
-        activation_bouton_verif_simul = clickable_images(["https://i.postimg.cc/QxNJ19t2/Boutton-simulateur-ecosysteme.png"], div_style={"display": "flex", "justify-content": "center"}, img_style={"width": "80px"},)
+        activation_bouton_verif_simul = clickable_images(["https://i.postimg.cc/QxNJ19t2/Bouton-simulateur-ecosysteme.png"], div_style={"display": "flex", "justify-content": "center"}, img_style={"width": "80px"},)
+
+        if 'ballons_deja_affiches' not in st.session_state:
+            st.session_state.ballons_deja_affiches = False
 
         if activation_bouton_verif_simul == 0 :
 
@@ -593,10 +633,12 @@ if choix_page == "Simulation":
             populations_finales = sol.y[:, -1]
 
             # Succès de l'utilisateur
-            if all(populations_finales > 5):
+            if all(populations_finales > 10):
                 st.sidebar.success("🏆 **Succès !**\n\nAprès 200 ans, les 5 espèces ont survécu et l'écosystème est en pleine santé ! 🌷")
-                for i in range (2):
-                    st.balloons()
+                if st.session_state.ballons_deja_affiches == False:
+                    for i in range(2):
+                        st.balloons()
+                    st.session_state.ballons_deja_affiches = True
 
             # Échec de l'utilisateur
             else:
@@ -612,11 +654,12 @@ if choix_page == "Simulation":
                 noms = ["Insectes", "Lézard", "Coati", "Boa", "Jaguar"]
 
                 for num_espece, population in enumerate(populations_finales):
-                    if population < 5:
+                    if population < 10:
                         st.write(f"❌ L'espèce **{noms[num_espece]}** s'est éteinte")
                     else:
                         st.write(f"✅ L'espèce **{noms[num_espece]}** a survécu.")
 
+                st.session_state.ballons_deja_affiches = False
 
 
 # if choix_page == "Théorie"
@@ -625,25 +668,25 @@ else:
         scroll_to_here(0, key="scroll_action")
         st.session_state.do_scroll = False
 
-    st.markdown("<h1 style='text-align: left; font-size: 18px; font-weight: normal; margin-top: 25px; margin-bottom: 30px'><i>Site réalisé par Etienne Baribeault et Vincent Dion<i></h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: left; font-size: 18px; font-weight: normal; margin-top: 20px; margin-bottom: 20px'><i>Site réalisé par Etienne Baribeault et Vincent Dion</i></h1>", unsafe_allow_html=True)
 
     st.markdown("<h1 style='text-align: left; font-size: 20px; color: #1b9dde; '>Avant-propos</h1>", unsafe_allow_html=True)
 
-    st.markdown("<h1 style='text-align: justify; font-size: 18px; font-weight: normal; line-height: 1.5; margin-bottom: 50px'>"
+    st.markdown("<h1 style='text-align: justify; font-size: 18px; font-weight: normal; line-height: 1.5; margin-bottom: 40px'>"
                 "Les populations d’un écosystème s’organisent en un réseau trophique, "
                 "c’est-à-dire un ensemble de chaînes alimentaires (relations de prédation linéaires) qui s’entrecroisent. La prédation amène un transfert énergétique "
                 "qui est limité par l’efficacité d’ingestion, l’efficacité de digestion et l’efficacité écologique (qui se penche sur les pertes d’énergie entraînées "
-                "par la respiration cellulaire) du prédateur. Des transferts énergétiques suffisants et proportionnels à la population d’une espèce sont nécessaire "
-                "pour assurer sa survie et sa prolifération. La prédation est influencée par une immense gamme de facteurs, donc plusieurs seront abordés lors de la "
-                "présentation du site, facteurs pouvant être exploités pour avoir une idée de l’état d’une population et de son futur. Il serait cependant irréaliste de "
-                "chercher à produire un modèle mathématique exact, puisqu’un écosystème est régi par des phénomènes aléatoires ou non prévisibles à long terme, comme "
-                "la météo, les maladies, le comportement, l’irrégularité relative de la reproduction, etc."
+                "par la respiration cellulaire) du prédateur. Des transferts énergétiques soutenus et proportionnels à la population d’une espèce sont nécessaires "
+                "pour assurer sa survie et sa prolifération. La prédation est influencée par une immense gamme de facteurs, dont plusieurs seront abordés lors de la "
+                "présentation du site, facteurs pouvant être exploités mathématiquement pour avoir une idée de l’état d’une population et de son avenir. Il serait cependant "
+                "irréaliste de chercher à produire un modèle mathématique exact, puisqu’un écosystème est régi par des phénomènes difficilement prévisibles à long terme, "
+                "voire aléatoires, comme la météo, les maladies, le comportement, l’irrégularité relative de la reproduction, etc."
                 "</h1>", unsafe_allow_html=True)
 
     st.markdown("<h1 style='text-align: left; font-size: 20px; color: #1b9dde; '>Présentation du site</h1>", unsafe_allow_html=True)
 
     #Définir un style
-    st.markdown("""<style>.custom-text {font-size: 18px; font-weight: normal; line-height: 1.5}</style>""", unsafe_allow_html=True)
+    st.markdown("""<style>.custom-text {text-align: justify; font-size: 18px; font-weight: normal; line-height: 1.5}</style>""", unsafe_allow_html=True)
 
     # Exemples d'intégration de LaTeX
     # st.markdown('<span class="custom-text">Polynôme :</span> $N_a = \\frac{aNT}{1 + aNT_h}$', unsafe_allow_html=True)
@@ -655,67 +698,66 @@ else:
                 '$\\frac{dx}{dt}=\\alpha x-\\beta xy$<br><br>'
                 '$\\frac{dy}{dt}=\\delta xy-\\gamma y$<br><br>'
                 '$x$ représente la population de proies ;<br>'
-                '$y$ la population de prédateurs ;<br>'
-                '$\\alpha$ le taux de croissance maximal de la population de proies ;<br>'
-                '$\\beta$ le taux de mortalité des proies causé par les prédateurs ;<br>'
-                '$\\delta$ le taux de croissance maximal des prédateurs assuré par la consommation des proies ;<br>'
-                '$\\gamma$ le taux de mortalité des prédateurs.<br><br><br></span>',
+                '$y$, la population de prédateurs ;<br>'
+                '$\\alpha$, le taux de croissance maximal de la population de proies ;<br>'
+                '$\\beta$, le taux de mortalité des proies causé par les prédateurs ;<br>'
+                '$\\delta$, le taux de croissance maximal des prédateurs assuré par la consommation de proies ;<br>'
+                '$\\gamma$, le taux de mortalité des prédateurs.<br><br><br></span>',
                 unsafe_allow_html=True)
 
-    st.markdown('<span class="custom-text">Nous avons également incorporé dans nos équations le modèle de Holling de type 2,qui détermine le nombre '
-        'de proies consommées par un prédateur dans un intervalle de temps donné d’après une limite basée sur l’efficacité digestive :<br><br>'
+    st.markdown('<span class="custom-text">Nous avons également incorporé dans nos équations le modèle de Holling de type II, qui étudie le nombre '
+        'de proies consommées par un prédateur dans un intervalle de temps donné d’après une limite basée sur une efficacité de traitement des prises :<br><br>'
         '$N_a=\\frac{aNT}{1+aNT_h} $<br><br>'
         '$N_a$ représente le nombre de proies consommées par un prédateur ;<br>'
-        '$a$ l’efficacité d’attaque ;<br>'
-        '$N$ le nombre de proies disponibles ;<br>'
-        '$T$ la durée de l’étude ;<br>'
-        '$T_h$ le temps de manipulation par proie (recherche, capture, ingestion, digestion).<br><br><br></span>',
+        '$a$, l’efficacité d’attaque ;<br>'
+        '$N$, le nombre de proies disponibles ;<br>'
+        '$T$, la durée de l’étude ;<br>'
+        '$T_h$, le temps de manipulation par proie (recherche, capture, ingestion, digestion).<br><br><br></span>',
         unsafe_allow_html=True)
 
-    st.markdown('<span class="custom-text">Afin de préciser les constantes des deux modèles, nous avons incorporé des paramètres mesurables comme le nombre de calories '
+    st.markdown('<div class="custom-text">Afin de préciser les constantes des deux modèles, nous avons incorporé des paramètres mesurables comme le nombre de calories '
         'par proie, le coût de production d’une portée et la taille de cette dernière. Nous avons également généralisé le terme de longévité de l’équation de Lotka-Volterra '
-        'à toutes les espèces de l’écosystème, et avons ajouté un terme de compétition entre les membres d’une même espèce pour tenir compte de la limitation de l’espace '
-        'et des ressources dans un écosystème. C’est ainsi que nous avons cerné les différents termes à inclure dans les équations différentielles représentant la population '
-        'de chacune des espèces.<br><br><br></span>',
+        'auprès de toutes les espèces de l’écosystème, et avons ajouté un terme de compétition entre les membres d’une même espèce pour tenir compte de la limitation de l’espace '
+        'et des ressources dans un milieu naturel. C’est ainsi que nous avons cerné les différents termes à inclure dans les équations différentielles représentant la variation '
+        'de la population de chacune des espèces selon le temps.<br><br><br></div>',
         unsafe_allow_html=True)
 
     st.markdown('<span class="custom-text">Terme de natalité de la proie à la base de l’écosystème :<br><br>'
         '$\\frac{{0,5\\cdot0,6\\cdot\\left(C_{PJ}\\cdot E_A-C_{MDP}\\right)\\cdot P_{Proie}\\cdot T}_P}{C_{EP}} $<br><br>'
         '$0,5$ représente la proportion de femelles ;<br>'
-        '$0,6$ la proportion de femelles pouvant mettre bas ;<br>'
-        '$C_{PJ}$ le nombre de calories ingérées par jour par la proie de base ;<br>'
-        '$E_A$ l’efficacité alimentaire ;<br>'
-        '$C_{MP}$ le coût métabolique du parent ;<br>'
-        '$P_{Proie}$ la taille de la population de proies;<br>'
-        '$T_P$ la taille d’une portée ;<br>'
-        '$C_{EP}$ le coût énergétique pour la production d’une portée.<br><br><br></span>',
+        '$0,6$, la proportion de femelles pouvant mettre bas ;<br>'
+        '$C_{PJ}$, le nombre de calories ingérées par jour par la proie de base ;<br>'
+        '$E_A$, l’efficacité alimentaire ;<br>'
+        '$C_{MP}$, le coût métabolique du parent ;<br>'
+        '$P_{Proie}$, la taille de la population de proies;<br>'
+        '$T_P$, la taille d’une portée ;<br>'
+        '$C_{EP}$, le coût énergétique pour la production d’une portée.<br><br><br></span>',
         unsafe_allow_html=True)
 
     st.markdown('<span class="custom-text">Terme de compétition d’une espèce :<br><br>'
                 '$\\frac{T_N \\cdot P}{P_{Max}}$<br><br>'
                 '$T_N$ représente le terme de natalité de la proie ;<br>'
-                '$P$ la taille de la population ;<br>'
-                '$P_{Max}$ la population maximale que l’écosystème peut soutenir.<br><br><br></span>',
+                '$P$, la taille de la population ;<br>'
+                '$P_{Max}$, la population maximale que l’écosystème peut soutenir.<br><br><br></span>',
                 unsafe_allow_html=True)
 
     st.markdown('<span class="custom-text">Terme de décès d’une proie par un prédateur spécifique :<br><br>'
                 '$\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}}$<br><br>'
                 '$K_{ER}$ représente la constante d’efficacité de recherche ;<br>'
-                '$E_S$ l’efficacité de survie de la proie ;<br>'
-                '$E_P$ l’efficacité de prédation du prédateur ;<br>'
-                '$P_{Proie}$ la taille de la population de proies ;<br>'
-                '$P_{Pred}$ la taille de la population de prédateurs ;<br>'
-                '$T_D$ le temps de digestion par proie.<br><br>'
+                '$E_P$, l’efficacité de prédation du prédateur ;<br>'
+                '$E_S$, l’efficacité de survie de la proie ;<br>'
+                '$P_{Proie}$, la taille de la population de proies ;<br>'
+                '$P_{Pred}$, la taille de la population de prédateurs ;<br>'
+                '$T_h$, le temps de manipulation par proie.<br><br>'
                 '<i>On reconnaît l’inspiration du modèle de Holling de type II ($\\frac{aN}{1 + aNT_h} \\cdot P_{Pred}$), '
                 'avec un $a$ (l’efficacité d’attaque) équivalent à $K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right)$ '
-                'et un $N$ (le nombre de proies disponibles) remplacé par $P_{Proie}$.<i><br><br><br></span>',
+                'et un $N$ (le nombre de proies disponibles) remplacé par $P_{Proie}$.</i><br><br><br></span>',
                 unsafe_allow_html=True)
 
-    st.markdown(
-        '<span class="custom-text">Terme de natalité d’un prédateur grâce à une population de proies précise :<br><br>'
+    st.markdown('<span class="custom-text">Terme de natalité d’un prédateur grâce à une population de proies précise :<br><br>'
         '$\\frac{0,5 \\cdot 0,6 \\cdot \\left(\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}} \\cdot E_{Proie} \\cdot E_A - C_{MDP}\\right) \\cdot P_{Proie} \\cdot T_P}{C_{EP}}$<br><br>'
         'Cette équation correspond à celle de la natalité des proies ($\\frac{0,5 \\cdot 0,6 \\cdot (C_{PJ} \\cdot E_A - C_{MDP}) \\cdot P_{Proie} \\cdot T_P}{C_{EP}}$), '
-        'où le nombre de calories ingérées par jour ($C_{PJ}$) est exprimé comme fonction du nombre de proies, '
+        'où le nombre de calories ingérées par jour<br>($C_{PJ}$) est exprimé comme fonction du nombre de proies, '
         'en multipliant le nombre de proies tuées ($\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}}$) '
         'par l’énergie contenue dans chaque proie ($E_{Proie}$).<br><br><br></span>',
         unsafe_allow_html=True)
@@ -723,40 +765,53 @@ else:
     st.markdown('<span class="custom-text">Terme de mortalité naturelle :<br><br>'
                 '$\\frac{P}{L}$<br><br>'
                 '$P$ représente la population de l’espèce ;<br>'
-                '$L$ sa longévité dans les conditions optimales.<br><br><br>'
-                'En combinant ces équations, on obtient le taux de variation de la population d’une espèce '
-                'de l’écosystème. Illustrons avec une espèce 2 ($E_2$) consommant l’espèce 1 ($E_1$) et se '
-                'faisant manger par les espèces 3 ($E_3$) et 4 ($E_4$) :<br><br>'
-                '$\\frac{dE_2}{dt} = \\text{Terme natalité } E_2 \\text{ par } E_1 - \\text{Terme compétition } E_2 - '
-                '\\text{Terme décès } E_2 \\text{ par } E_3 - \\text{Terme décès } E_2 \\text{ par } E_4 - '
-                '\\text{Terme mortalité naturelle } E_2$<br><br><br></span>',
+                '$L$, sa longévité dans les conditions optimales.<br><br><br>',
                 unsafe_allow_html=True)
 
-    st.markdown(
-        '<span class="custom-text">En faisant de même pour toutes les espèces, on peut déterminer l’évolution de chaque population d’un écosystème '
-        'à travers le temps. Cependant, pour déterminer comment plusieurs espèces interagissent dans un environnement donné, il importe de sélectionner '
-        'un réseau trophique ! Voici celui pour lequel nous avons opté :</span>',
+    st.markdown('<span class="custom-text">En combinant ces équations, on obtient le taux de variation de la population d’une espèce de l’écosystème. '
+                'Illustrons ceci avec une espèce 2 ($E_2$) consommant une espèce 1 ($E_1$) et se faisant manger par les espèces 3 ($E_3$) et 4 ($E_4$) :<br><br>'
+                '$\\frac{dE_2}{dt} = \\text{Terme de natalité } E_2 \\text{ par } E_1 - \\text{Terme de compétition } E_2 - '
+                '\\text{Terme de décès } E_2 \\text{ par } E_3$<br>$- \\text{ Terme de décès } E_2 \\text{ par } E_4 - '
+                '\\text{Terme de mortalité naturelle } E_2$<br><br><br></span>',
+                unsafe_allow_html=True)
+
+    st.markdown('<div class="custom-text">En faisant de même pour toutes les espèces, on crée un système d’équations différentielles qui relie l’évolution de toutes les '
+        'populations d’un écosystème à travers le temps. Cependant, pour déterminer comment plusieurs espèces interagissent dans un environnement donné, il importe bien sûr de '
+        'sélectionner un réseau trophique ! Celui pour lequel nous avons opté rassemble des insectes herbivores, des lézards, des coatis, des boas et des jaguars :</div>',
         unsafe_allow_html=True)
 
     st.markdown("""<div style="display: flex; justify-content: center; "> <img src="https://i.postimg.cc/vBW0GWVf/Schema-animaux.png" width="500"> </div> """, unsafe_allow_html=True)
 
-    st.markdown(
-        '<span class="custom-text">Dans la page de simulation, il sera possible, dans le schéma au bas de la page, de découvrir, en ajustant le '
-        'curseur du temps, comment varieront les échanges énergétiques en chacune des espèces reliées par une dynamique proie-prédateur. Les valeurs '
-        'd’énergie sont obtenues en intégrant… <b>[À COMPLÉTER]<b> <br><br></span>',
+    st.markdown('<div class="custom-text">Au niveau de la page de simulation, la portion supérieure sera consacrée au graphique du nombre d’individus de chaque espèce selon '
+        'le temps. Ce graphique provient de la résolution algorithmique des équations différentielles tout juste abordées. L’utilisateur pourra ajuster, pour les espèces applicables, '
+        'les paramètres suivants : la taille des portées, l’efficacité de prédation, l’efficacité de survie et la longévité dans des conditions optimales. Ces valeurs influenceront '
+        'les cinq courbes affichées par le simulateur. Nous avons décidé d’associer au graphique ainsi produit une option ludique, dans laquelle l’utilisateur a pour but de choisir ses '
+        'paramètres de telle sorte que les cinq populations de l’écosystème survivent à long terme. Pour ce faire, elles doivent demeurer à une valeur au-dessus du seuil d’extinction, '
+        'fixé arbitrairement à 10 individus : lorsqu’une population comprend trop peu d’individus, le manque de diversité génétique résultant de la consanguinité mène à la déchéance '
+        'd’une espèce. En s’aidant du graphique, l’utilisateur devra tenter d’assurer un équilibre des courbes 200 ans après le début de la simulation, c’est-à-dire bien au-delà de '
+        'la plage de 20 ans affichée par le graphique. C’est là que réside le défi ! Quand il sera prêt à tester sa combinaison de paramètres, l’utilisateur n’aura qu’à cliquer sur '
+        'le bouton «&nbspValider la viabilité&nbsp». Après cela, la vérification se fera de manière automatique jusqu’à ce que succès il y ait. Voici le bouton en question, qui apparaît '
+        'dans le panneau latéral de la page de simulation :</div>',
         unsafe_allow_html=True)
 
+    st.markdown("""<div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom : 50px"> <img src="https://i.postimg.cc/QxNJ19t2/Boutton-simulateur-ecosysteme.png" width="100"> </div>""", unsafe_allow_html=True)
+
     st.markdown(
-        '<span class="custom-text">Le haut de la page, pour sa part, sera consacré au graphique du nombre d’individus de chaque espèce selon le '
-        'temps. Ce graphique provient de la résolution algorithmique des équations différentielles présentées plus tôt. L’utilisateur pourra ajuster, '
-        'pour les espèces applicables, les paramètres suivants : la taille des portées, l’efficacité de survie, l’efficacité de prédation et la longévité '
-        'dans des conditions optimales. Nous avons également prévu une option ludique, dans laquelle l’utilisateur a pour but d’ajuster les curseurs de '
-        'sorte à stabiliser les cinq populations de l’écosystème à une valeur au-dessus du seuil d’extinction, fixé à 10 individus. Lorsqu’une population '
-        'comprend si peu d’individus, le manque de diversité génétique résultant de la consanguinité mène à la déchéance d’une espèce. Cela ayant été dit, '
-        'l’utilisateur aura pour but de tester si la condition de pérennité est respectée 200 ans après le début de la simulation. Pour valider ses essais, '
-        'il n’aura qu’à cliquer sur le bouton « Valider la viabilité ».<br><br></span>',
+        '<div class="custom-text">La page de simulation fournit une multitude d’autres options de découverte, qui se concentrent sur l’analyse détaillée d’une année dont '
+        'le choix revient à l’utilisateur. Au sein de celle-ci, ce sont les échanges énergétiques qui sont explorés, à partir de la différence entre l’énergie entrant dans une population '
+        'et l’énergie en sortant. Pour un prédateur, l’énergie entrante équivaut à l’énergie perdue par ses proies à travers le terme de mortalité associé à la relation de prédation concernée, à '
+        'laquelle on ajoute un coefficient correspondant au produit de l’efficacité d’ingestion et de l’efficacité d’assimilation. Pour la proie de base (les insectes), l’énergie entrante est '
+        'simplement le produit du nombre de calories ingérées par jour, de l’efficacité alimentaire et du nombre d’individus. L’énergie sortante, pour sa part, correspond dans tous les cas au '
+        'produit du nombre d’individus décédés (par prédation ou par mort naturelle) et de leur teneur calorique, auquel s’ajoute le terme du coût métabolique multiplié par le nombre d’individus. Tout '
+        'compte fait, on réutilise certaines des équations ayant permis de calculer la variation des populations en y insérant les grandeurs obtenues lors de la résolution des équations '
+        'différentielles, et on y ajoute quelques paramètres transformant une variation d’individus en une variation calorique. Ces informations concernant les flux énergétiques ont été utilisées '
+        'de trois manières différentes. En premier lieu, elles ont servi à construire un bilan énergétique annuel, qui correspond à la différence entre l’énergie entrante et l’énergie '
+        'sortante pour l’entièreté de la population sur l’échelle d’une année. Cette valeur est affichée, pour chaque espèce, dans un menu rétractable intitulé «&nbsp;Vue d’ensemble des '
+        'résultats pour l’an <i>n</i>&nbsp;». En deuxième lieu, cinq graphiques représentent la variation calorique quotidienne pour les différentes espèces. On comprend ainsi que le bilan '
+        'annuel pour une population donnée correspond à l’aire sous la courbe qui lui correspond. En troisième lieu, on retrouve un schéma illustrant les échanges énergétiques au sein des '
+        'divers rapports de prédation. Chaque échange énergétique est représenté par le produit de l’énergie brute prélevée depuis une population et de l’efficacité alimentaire du prédateur. '
+        'Si le flux énergétique est supérieur à celui de l’année précédente, la valeur est affichée dans une case verte ; si le flux est inférieur, la case est rouge ; s’il n’y a pas d’année '
+        'précédente (an 1), la case est grise.<br><br></div>',
         unsafe_allow_html=True)
 
-    st.markdown("""<div style="display: flex; justify-content: center; margin-bottom: 80px"> <img src="https://i.postimg.cc/QxNJ19t2/Boutton-simulateur-ecosysteme.png" width="100"> </div>""", unsafe_allow_html=True)
-
-    st.markdown("<h1 style='text-align: center; font-size: 18px; font-weight: normal'><i>Nous tenons à remercier Freepik AI pour la création des sympathiques illustrations utilisées dans ce projet.<i></span>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; font-size: 18px; font-weight: normal'><i>Nous tenons à remercier Magnific AI pour la création des sympathiques illustrations utilisées dans ce projet.</i></h1>", unsafe_allow_html=True)
