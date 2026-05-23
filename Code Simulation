@@ -515,7 +515,7 @@ if choix_page == "Simulation":
 
             # Ligne du seuil d'extinction
             axe_1.axhline(y=10 + epsilon, color='black', linestyle='--', linewidth='1')
-            axe_1.text(10, 10 + epsilon, "Seuil d'extinction", ha="center", va="center",bbox=dict(facecolor='#54d765', edgecolor='#198631', boxstyle='round,pad=0.3'))
+            axe_1.text(10, 10 + epsilon, "", ha="center", va="center")
             axe_1.axvspan(debut_annee, fin_annee, color='#f72a57', alpha=0.1)
 
             st.pyplot(figure_1)
@@ -723,9 +723,9 @@ else:
         unsafe_allow_html=True)
 
     st.markdown('<span class="custom-text">Terme de natalité de la proie à la base de l’écosystème :<br><br>'
-        '$\\frac{{0,5\\cdot0,6\\cdot\\left(C_{PJ}\\cdot E_A-C_{MDP}\\right)\\cdot P_{Proie}\\cdot T}_P}{C_{EP}} $<br><br>'
-        '$0,5$ représente la proportion de femelles ;<br>'
-        '$0,6$, la proportion de femelles pouvant mettre bas ;<br>'
+        '$\\frac{{0{,}5\\cdot0{,}6\\cdot\\left(C_{PJ}\\cdot E_A-C_{MDP}\\right)\\cdot P_{Proie}\\cdot T}_P}{C_{EP}} $<br><br>'
+        '$0{,}5$ représente la proportion de femelles ;<br>'
+        '$0{,}6$, la proportion de femelles pouvant mettre bas ;<br>'
         '$C_{PJ}$, le nombre de calories ingérées par jour par la proie de base ;<br>'
         '$E_A$, l’efficacité alimentaire ;<br>'
         '$C_{MP}$, le coût métabolique du parent ;<br>'
@@ -755,8 +755,8 @@ else:
                 unsafe_allow_html=True)
 
     st.markdown('<span class="custom-text">Terme de natalité d’un prédateur grâce à une population de proies précise :<br><br>'
-        '$\\frac{0,5 \\cdot 0,6 \\cdot \\left(\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}} \\cdot E_{Proie} \\cdot E_A - C_{MDP}\\right) \\cdot P_{Proie} \\cdot T_P}{C_{EP}}$<br><br>'
-        'Cette équation correspond à celle de la natalité des proies ($\\frac{0,5 \\cdot 0,6 \\cdot (C_{PJ} \\cdot E_A - C_{MDP}) \\cdot P_{Proie} \\cdot T_P}{C_{EP}}$), '
+        '$\\frac{0{,}5 \\cdot 0{,}6 \\cdot \\left(\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}} \\cdot E_{Proie} \\cdot E_A - C_{MDP}\\right) \\cdot P_{Proie} \\cdot T_P}{C_{EP}}$<br><br>'
+        'Cette équation correspond à celle de la natalité des proies ($\\frac{0{,}5 \\cdot 0{,}6 \\cdot (C_{PJ} \\cdot E_A - C_{MDP}) \\cdot P_{Proie} \\cdot T_P}{C_{EP}}$), '
         'où le nombre de calories ingérées par jour<br>($C_{PJ}$) est exprimé comme fonction du nombre de proies, '
         'en multipliant le nombre de proies tuées ($\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}}$) '
         'par l’énergie contenue dans chaque proie ($E_{Proie}$).<br><br><br></span>',
