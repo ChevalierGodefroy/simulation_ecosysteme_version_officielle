@@ -269,8 +269,8 @@ if choix_page == "Simulation":
         y_safe = np.maximum(y, 0)
         P_E1, P_E2, P_E3, P_E4, P_E5 = y_safe
 
-        # Terme de natalité : 1.0 si pop >= 5, sinon 0.0
-        peut_reproduire = np.array([1.0 if val >= 10.0 else 0.0 for val in y_safe])
+        # Terme de natalité : 1.0 si pop >= 10, sinon 0.0
+        peut_reproduire = (y_safe >= 10.0).astype(float)
 
         dP_E1dt = natalité_et_compétition_proie_de_base(CIPJPB, EA_E1_Herbe, CMDP_E1, P_E1, TPI_E1, CEPP_E1, CDC_E1)*peut_reproduire[0] - décès_proie (KER_E2, ES_E1, EP_E2, P_E1, P_E2, TDDPP_E2_E1) - décès_proie(KER_E3, ES_E1, EP_E3, P_E1, P_E3, TDDPP_E3_E1) - mortalité_naturelle(LongJ_E1, P_E1)
         dP_E2dt = natalité_et_compétition_prédateur_via_une_population_de_proies_précise(KER_E2, ES_E1, EP_E2, P_E1, TDDPP_E2_E1, EPPDT_E1, EA_E2_E1, CMDP_E2, P_E2, TPI_E2, CEPP_E2, CDC_E2)*peut_reproduire[1] - décès_proie(KER_E3, ES_E2, EP_E3, P_E2, P_E3, TDDPP_E3_E2) - décès_proie(KER_E4, ES_E2, EP_E4, P_E2, P_E4, TDDPP_E4_E2) - mortalité_naturelle(LongJ_E2, P_E2)
@@ -324,7 +324,7 @@ if choix_page == "Simulation":
 
 
     # Résolution du système d'équations différentielles
-    sol = solve_ivp(système_équations, durée_simul, y0, t_eval=échelle_temps_simul, method='Radau')
+    sol = solve_ivp(système_équations, durée_simul, y0, t_eval=échelle_temps_simul, method='RK45')
 
 
 
