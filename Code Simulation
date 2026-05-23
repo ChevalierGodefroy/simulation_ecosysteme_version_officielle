@@ -436,7 +436,7 @@ if choix_page == "Simulation":
         infos_flux.append({"Espèce": noms_especes[i], "Bilan énergétique annuel (kcal)": f"{energie_nette_totale:,.0f}", "Variation de la population": f"{changement_population:+,.0f} {suffixe_individu}", "Statut": "📈 Croissance" if energie_nette_totale > 0 else "📉 Décroissance"})
 
     # Affichage du test diagnostique
-    with st.expander(f"**Vue d'ensemble des résultats pour l'an {annee_selectionnee}**"):
+    with st.expander(f"**Vue d'ensemble des résultats de l'année**"):
         st.table(infos_flux)
 
 
