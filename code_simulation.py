@@ -723,13 +723,13 @@ else:
         unsafe_allow_html=True)
 
     st.markdown('<span class="custom-text">Terme de natalité de la proie à la base de l’écosystème :<br><br>'
-        '$\\frac{{0{,}5\\cdot0{,}6\\cdot\\left(C_{PJ}\\cdot E_A-C_{MDP}\\right)\\cdot T}P\\cdot P_{Proie}}{C_{EP}} $<br><br>'
+        '$\\frac{0{,}5\\cdot0{,}6\\cdot\\left(C_{PJ}\\cdot E_A-C_{MDP}\\right)\\cdot T_P\\cdot P_{Proie}}{C_{EP}}$<br><br>'
         '$0{,}5$ représente la proportion de femelles ;<br>'
         '$0{,}6$, la proportion de femelles pouvant mettre bas ;<br>'
         '$C_{PJ}$, le nombre de calories ingérées par jour par la proie de base ;<br>'
         '$E_A$, l’efficacité alimentaire ;<br>'
         '$C_{MP}$, le coût métabolique du parent ;<br>'
-                '$T_P$, la taille d’une portée ;<br>'
+        '$T_P$, la taille d’une portée ;<br>'
         '$P_{Proie}$, la taille de la population de proies;<br>'
         '$C_{EP}$, le coût énergétique pour la production d’une portée.<br><br><br></span>',
         unsafe_allow_html=True)
