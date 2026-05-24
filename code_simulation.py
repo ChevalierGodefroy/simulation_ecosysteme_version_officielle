@@ -810,7 +810,7 @@ else:
         'résultats pour l’an <i>n</i>&nbsp;». En deuxième lieu, cinq graphiques représentent la variation calorique quotidienne pour les différentes espèces. On comprend ainsi que le bilan '
         'annuel pour une population donnée correspond à l’aire sous la courbe qui lui correspond. En troisième lieu, on retrouve un schéma illustrant les échanges énergétiques au sein des '
         'divers rapports de prédation. Chaque échange énergétique est représenté par le produit de l’énergie brute prélevée depuis une population et de l’efficacité alimentaire du prédateur. '
-        'Si le flux énergétique est supérieur à celui de l’année précédente, la valeur est affichée dans une case verte ; si le flux est inférieur, la case est rouge&nspb; s’il n’y a pas d’année '
+        'Si le flux énergétique est supérieur à celui de l’année précédente, la valeur est affichée dans une case verte ; si le flux est inférieur, la case est rouge&nbsp; s’il n’y a pas d’année '
         'précédente (an 1), la case est grise.<br><br></div>',
         unsafe_allow_html=True)
 
