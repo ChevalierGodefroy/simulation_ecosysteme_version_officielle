@@ -515,7 +515,7 @@ if choix_page == "Simulation":
 
             # Ligne du seuil d'extinction
             axe_1.axhline(y=10 + epsilon, color='black', linestyle='--', linewidth='1')
-            axe_1.text(10, 10 + epsilon, "", ha="center", va="center")
+            axe_1.text(10, 5 + epsilon, "Seuil d'extinction", ha="center", va="center",bbox=dict(facecolor='#54d765', edgecolor='#198631', boxstyle='round,pad=0.3'))
             axe_1.axvspan(debut_annee, fin_annee, color='#f72a57', alpha=0.1)
 
             st.pyplot(figure_1)
