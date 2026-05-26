@@ -805,10 +805,10 @@ else:
         'produit du nombre d’individus décédés (par prédation ou par mort naturelle) et de leur teneur calorique, auquel s’ajoute le terme du coût métabolique multiplié par le nombre d’individus. Tout '
         'compte fait, on réutilise certaines des équations ayant permis de calculer la variation des populations en y insérant les grandeurs obtenues lors de la résolution des équations '
         'différentielles, et on y ajoute quelques paramètres transformant une variation d’individus en une variation calorique. Ces informations concernant les flux énergétiques ont été utilisées '
-        'de trois manières différentes. En premier lieu, elles ont servi à construire un bilan énergétique annuel, qui correspond à la différence entre l’énergie entrante et l’énergie '
+        'de trois manières différentes. <i>En premier lieu</i>, elles ont servi à construire un bilan énergétique annuel, qui correspond à la différence entre l’énergie entrante et l’énergie '
         'sortante pour l’entièreté de la population sur l’échelle d’une année. Cette valeur est affichée, pour chaque espèce, dans un menu rétractable intitulé «&nbsp;Vue d’ensemble des '
-        'résultats pour l’an <i>n</i>&nbsp;». En deuxième lieu, cinq graphiques représentent la variation calorique quotidienne pour les différentes espèces. On comprend ainsi que le bilan '
-        'annuel pour une population donnée correspond à l’aire sous la courbe qui lui correspond. En troisième lieu, on retrouve un schéma illustrant les échanges énergétiques au sein des '
+        'résultats pour l’an <i>n</i>&nbsp;». <i>En deuxième lieu</i>, cinq graphiques représentent la variation calorique quotidienne pour les différentes espèces. On comprend ainsi que le bilan '
+        'annuel pour une population donnée correspond à l’aire sous la courbe qui lui correspond. <i>En troisième lieu</i>, on retrouve un schéma illustrant les échanges énergétiques au sein des '
         'divers rapports de prédation. Chaque échange énergétique est représenté par le produit de l’énergie brute prélevée depuis une population et de l’efficacité alimentaire du prédateur. '
         'Si le flux énergétique est supérieur à celui de l’année précédente, la valeur est affichée dans une case verte ; si le flux est inférieur, la case est rouge&nbsp;; s’il n’y a pas d’année '
         'précédente (an 1), la case est grise.<br><br></div>',
