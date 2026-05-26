@@ -566,7 +566,7 @@ if choix_page == "Simulation":
         ax.yaxis.get_offset_text().set_color('#56adf5')
         ax.yaxis.get_offset_text().set_weight('bold')
 
-        ax.set_title(f"Flux net : {noms_especes[i]}", fontsize=10)
+        ax.set_title(f"Flux net : {noms_especes[i].lower()}", fontsize=10)
         ax.set_xlabel("Plage annuelle", fontsize=8)
         ax.set_ylabel("kcal/jour", fontsize=8)
         ax.axhline(0, color='black', lw=0.8, ls='--')
