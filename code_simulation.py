@@ -657,7 +657,7 @@ if choix_page == "Simulation":
                     if population < 10:
                         st.write(f"❌ L'espèce **{noms[num_espece]}** s'est éteinte")
                     else:
-                        st.write(f"✅ L'espèce **{noms[num_espece]}** a survécu")
+                        st.write(f"✅ L'espèce **{noms[num_espece]}** a survécu.")
 
                 st.session_state.ballons_deja_affiches = False
 
