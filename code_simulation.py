@@ -800,7 +800,7 @@ else:
         '<div class="custom-text">La page de simulation fournit une multitude d’autres options de découverte, qui se concentrent sur l’analyse détaillée d’une année dont '
         'le choix revient à l’utilisateur. Au sein de celle-ci, ce sont les échanges énergétiques qui sont explorés, à partir de la différence entre l’énergie entrant dans une population '
         'et l’énergie en sortant. Pour un prédateur, l’énergie entrante équivaut à l’énergie perdue par ses proies à travers le terme de mortalité associé à la relation de prédation concernée, à '
-        'laquelle on ajoute un coefficient correspondant au produit de l’efficacité d’ingestion et de l’efficacité d’assimilation. Pour la proie de base (les insectes), l’énergie entrante est '
+        'laquelle on adjoint un coefficient correspondant au produit de l’efficacité d’ingestion et de l’efficacité d’assimilation. Pour la proie de base (les insectes), l’énergie entrante est '
         'simplement le produit du nombre de calories ingérées par jour, de l’efficacité alimentaire et du nombre d’individus. L’énergie sortante, pour sa part, correspond dans tous les cas au '
         'produit du nombre d’individus décédés (par prédation ou par mort naturelle) et de leur teneur calorique, auquel s’ajoute le terme du coût métabolique multiplié par le nombre d’individus. Tout '
         'compte fait, on réutilise certaines des équations ayant permis de calculer la variation des populations en y insérant les grandeurs obtenues lors de la résolution des équations '
