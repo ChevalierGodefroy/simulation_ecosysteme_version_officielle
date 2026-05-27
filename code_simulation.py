@@ -756,7 +756,7 @@ else:
 
     st.markdown('<span class="custom-text">Terme de natalité d’un prédateur grâce à une population de proies précise :<br><br>'
         '$\\frac{0{,}5 \\cdot 0{,}6 \\cdot \\left(\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}} \\cdot E_{Proie} \\cdot E_A - C_{MDP}\\right) \\cdot T_P \\cdot P_{Pred}}{C_{EP}}$<br><br>'
-        'Cette équation correspond à celle de la natalité des proies ($\\frac{0{,}5 \\cdot 0{,}6 \\cdot (C_{PJ} \\cdot E_A - C_{MDP}) \\cdot T_P \\cdot P_{Proie}}{C_{EP}}$), '
+        'Cette équation correspond à celle de la natalité des proies ($\\frac{0{,}5 \\cdot 0{,}6 \\cdot (C_{PJ} \\cdot E_A - C_{MP}) \\cdot T_P \\cdot P_{Proie}}{C_{EP}}$), '
         'où le nombre de calories ingérées par jour<br>($C_{PJ}$) est exprimé comme fonction du nombre de proies, '
         'en multipliant le nombre de proies tuées ($\\frac{K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot P_{Proie} \\cdot P_{Pred}}{1 + K_{ER} \\cdot \\left(\\frac{E_P}{E_S}\\right) \\cdot T_h \\cdot P_{Proie}}$) '
         'par l’énergie contenue dans chaque proie ($E_{Proie}$).<br><br><br></span>',
