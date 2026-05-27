@@ -794,7 +794,7 @@ else:
         'dans le panneau latéral de la page de simulation :</div>',
         unsafe_allow_html=True)
 
-    st.markdown("""<div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom : 50px"> <img src="https://i.postimg.cc/QxNJ19t2/Boutton-simulateur-ecosysteme.png" width="100"> </div>""", unsafe_allow_html=True)
+    st.markdown("""<div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom : 50px"> <img src="https://i.postimg.cc/QxNJ19t2/Bouton-simulateur-ecosysteme.png" width="100"> </div>""", unsafe_allow_html=True)
 
     st.markdown(
         '<div class="custom-text">La page de simulation fournit une multitude d’autres options de découverte, qui se concentrent sur l’analyse détaillée d’une année dont '
