@@ -655,9 +655,9 @@ if choix_page == "Simulation":
 
                 for num_espece, population in enumerate(populations_finales):
                     if population < 10:
-                        st.write(f"❌ L'espèce **{noms[num_espece]}** s'est éteinte")
+                        st.markdown(f"<span style='font-size: 15.5px;'>❌ L'espèce **{noms[num_espece]}** s'est éteinte.</span>", unsafe_allow_html=True)
                     else:
-                        st.write(f"✅ L'espèce **{noms[num_espece]}** a survécu.")
+                        st.markdown(f"<span style='font-size: 15.5px;'>✅ L'espèce **{noms[num_espece]}** a survécu.</span>", unsafe_allow_html=True)
 
                 st.session_state.ballons_deja_affiches = False
 
