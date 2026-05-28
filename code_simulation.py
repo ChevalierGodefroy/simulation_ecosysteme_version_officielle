@@ -728,7 +728,7 @@ else:
         '$0{,}6$, la proportion de femelles pouvant mettre bas ;<br>'
         '$C_{PJ}$, le nombre de calories ingérées par jour par la proie de base ;<br>'
         '$E_A$, l’efficacité alimentaire ;<br>'
-        '$C_{MP}$, le coût métabolique du parent ;<br>'
+        '$C_{MP}$, le coût métabolique quotidien du parent ;<br>'
         '$T_P$, la taille d’une portée ;<br>'
         '$P_{Proie}$, la taille de la population de proies;<br>'
         '$C_{EP}$, le coût énergétique pour la production d’une portée.<br><br><br></span>',
